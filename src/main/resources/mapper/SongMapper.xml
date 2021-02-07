@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenchen.ccmusic.dao.SongDao">
+    <resultMap id="BaseResultMap" type="com.chenchen.ccmusic.domain.Song" >
+        <id property="id" jdbcType="INTEGER" column="id"/>
+
+        <result property="singerId" jdbcType="INTEGER" column="singer_id"/>
+
+        <result property="name" jdbcType="VARCHAR" column="name"/>
+
+        <result property="introduction" jdbcType="VARCHAR" column="introduction"/>
+
+        <result property="lyric" jdbcType="LONGVARCHAR" column="lyric"/>
+
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+
+        <result property="pic" jdbcType="VARCHAR" column="pic"/>
+
+        <result property="url" jdbcType="VARCHAR" column="url"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,singer_id,name,introduction,lyric,create_time,update_time,pic,url
+    </sql>
+    <insert id="insert" parameterType="com.chenchen.ccmusic.domain.Song">
+        insert into song
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="singerId != null">
+                singer_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+            <if test="lyric != null">
+                lyric,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="pic != null">
+                pic,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+        </trim>
+        <trim prefix=" values( " suffix=" )" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="singerId != null">
+                #{singerId},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="introduction != null">
+                #{introduction},
+            </if>
+            <if test="lyric != null">
+                #{lyric},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="pic != null">
+                #{pic},
+            </if>
+            <if test="url != null">
+                #{url},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="com.chenchen.ccmusic.domain.Song">
+        update song
+        <set>
+            <if test="singerId != null">
+                singer_id = #{singerId},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="pic != null">
+                pic = #{pic},
+            </if>
+            <if test="lyric != null">
+                lyric = #{lyric},
+            </if>
+            <if test="url != null">
+                url = #{url},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from song where id = #{id}
+    </delete>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from song where id = #{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from song
+    </select>
+    <select id="selectSongByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from song where name = #{name}
+    </select>
+    <select id="selectSongLikeName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from song where name like #{name}
+    </select>
+    <select id="selectSongBySingerId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from song where singer_id = #{singerId}
+    </select>
+    <select id="getSongCount" resultType="java.lang.Integer">
+        select count(*)
+        from song
+    </select>
+</mapper>

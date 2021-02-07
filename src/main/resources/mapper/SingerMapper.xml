@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenchen.ccmusic.dao.SingerDao">
+    <resultMap id="BaseResultMap" type="com.chenchen.ccmusic.domain.Singer" >
+        <id property="id" jdbcType="INTEGER" column="id"/>
+
+        <result property="name" jdbcType="VARCHAR" column="name"/>
+
+        <result property="sex" jdbcType="TINYINT" column="sex"/>
+
+        <result property="pic" jdbcType="VARCHAR" column="pic"/>
+
+        <result property="birth" jdbcType="TIMESTAMP" column="birth"/>
+
+        <result property="location" jdbcType="VARCHAR" column="location"/>
+
+        <result property="introduction" jdbcType="VARCHAR" column="introduction"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,name,sex,birth,pic,location,introduction
+    </sql>
+    <insert id="insert" parameterType="com.chenchen.ccmusic.domain.Singer">
+        insert into singer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="pic != null">
+                pic,
+            </if>
+            <if test="birth != null">
+                birth,
+            </if>
+            <if test="location != null">
+                location,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+        </trim>
+        <trim prefix=" values( " suffix=" )" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="sex != null">
+                #{sex},
+            </if>
+            <if test="pic != null">
+                #{pic},
+            </if>
+            <if test="birth != null">
+                #{birth},
+            </if>
+            <if test="location != null">
+                #{location},
+            </if>
+            <if test="introduction != null">
+                #{introduction},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="com.chenchen.ccmusic.domain.Singer">
+        update singer
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="pic != null">
+                pic = #{pic},
+            </if>
+            <if test="birth != null">
+                birth = #{birth},
+            </if>
+            <if test="location != null">
+                location = #{location},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from singer where id = #{id}
+    </delete>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from singer where id = #{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from singer
+    </select>
+    <select id="selectSingerByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from singer where name like #{name}
+    </select>
+    <select id="selectSingerBySex" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from singer where sex = #{sex}
+    </select>
+
+    <select id="getSingerCount" resultType="java.lang.Integer">
+        select count(*)
+        from singer
+    </select>
+</mapper>

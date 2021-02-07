@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenchen.ccmusic.dao.RankDao">
+    <resultMap id="BaseResultMap" type="com.chenchen.ccmusic.domain.Rank" >
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="song_sheet_id" jdbcType="INTEGER" property="songSheetId"/>
+        <result column="consumer_id" jdbcType="INTEGER" property="consumerId"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.chenchen.ccmusic.domain.Rank">
+        insert into rank
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="songSheetId != null">
+                song_sheet_id,
+            </if>
+            <if test="consumerId != null">
+                consumer_id,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="songSheetId != null">
+                #{songSheetId},
+            </if>
+            <if test="consumerId != null">
+                #{consumerId},
+            </if>
+            <if test="score != null">
+                #{score},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectSumRank" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select COALESCE(sum(score),0) as score
+        from rank
+        where song_sheet_id = #{songSheetId}
+    </select>
+
+    <select id="selectSumUser" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select COALESCE(count(id),0) as num
+        from rank
+        where song_sheet_id = #{songSheetId}
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
