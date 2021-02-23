@@ -8,7 +8,7 @@
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
         <result column="type" jdbcType="TINYINT" property="type"/>
         <result column="song_id" jdbcType="INTEGER" property="songId"/>
-        <result column="song_list_id" jdbcType="INTEGER" property="songListId"/>
+        <result column="song_sheet_id" jdbcType="INTEGER" property="songListId"/>
         <result column="content" jdbcType="VARCHAR" property="content"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="up" jdbcType="INTEGER" property="up"/>
@@ -124,7 +124,7 @@
         select
         <include refid="Base_Column_List"/>
         from comment
-        where song_list_id = #{songListId}
+        where song_sheet_id = #{songListId}
     </select>
 
 </mapper>
